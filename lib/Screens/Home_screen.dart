@@ -32,29 +32,31 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _lat = locationData.latitude!;
       _lon = locationData.longitude!;
+      print('${_lat},${_lon}');
       _fetchWeatherAndNews();
     });
   }
 
-  Future<void> _fetchWeatherAndNews() async {                                // category based on lat and long
+  Future<void> _fetchWeatherAndNews() async {
     try {
       var weatherData = await _apiService.fetchWeather(_lat, _lon);
       var temperature = weatherData['current']['temp_c'];
+      print('temperature:$temperature');                                 // keywords based on weather type
+      String keyword;                                                    // if temp < 10 depression , if temp >30 fear, else happy
+      if (temperature < 10) {
+        keyword = 'depression';
+      } else if (temperature > 30) {
+        keyword = 'fear';
+      } else {
+        keyword = 'happy';
+      }
+       print('keyword:$keyword');
       setState(() {
         _weather = weatherData;
-        if (temperature < 10) {
-          _category = 'sports';
-        } else if (temperature > 30) {
-          _category = 'business';
-        } else {
-          _category = 'entertainment';
-        }
-        print("_category:$_category");
         _isLoading = true;
       });
 
-      var newsData = await _apiService.fetchNews(_category);
-
+      var newsData = await _apiService.fetchNews1(keyword);
       setState(() {
         _news = newsData;
         _isLoading = false;
@@ -65,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
   }
+
+
   Future<void> _fetchWeatherAndNews1() async {                                     // category based on user selection in setting screen
     try {
       var weatherData = await _apiService.fetchWeather(_lat, _lon);

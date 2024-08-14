@@ -71,8 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(8.0)),
               child: DropdownButton<String>(
                 value: _category,
-                items: <String>['general', 'business', 'entertainment', 'sports'].map((String value) {
-                  return DropdownMenuItem<String>(
+                items: <String>['general', 'business', 'entertainment', 'sports', 'science', 'politics', 'health'].map((String value) {
+                  return DropdownMenuItem<String>(         // added some new categories
                     value: value,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),

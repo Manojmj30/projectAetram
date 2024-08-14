@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   permission_handler: ^10.0.0
   http: ^1.2.2
+
   url_launcher: ^6.0.0
   location: ^7.0.0
 
